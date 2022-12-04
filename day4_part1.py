@@ -6,10 +6,8 @@ def is_full_overlap(line):
     second_start, second_end = second.split('-')
     second_range = set(range(int(second_start), int(second_end) + 1))
 
-    if first_range.issubset(second_range) or second_range.issubset(first_range):
-        return 1
-    else:
-        return 0
+    return first_range.issubset(second_range) or second_range.issubset(first_range)
+
 
 file_path = "/Users/zeev/PycharmProjects/AdventOfCode2022/venv/day4_input.txt"
 

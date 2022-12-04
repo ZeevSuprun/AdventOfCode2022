@@ -7,13 +7,10 @@ def is_any_overlap(line):
     second_range = set(range(int(second_start), int(second_end) + 1))
 
     intersection = first_range.intersection(second_range)
+    # an empty set evaluates to false
+    return bool(intersection)
 
-    if intersection:
-        return 1
-    else:
-        return 0
-
-file_path = "/Users/zeev/PycharmProjects/AdventOfCode2022/venv/day4_input.txt"
+file_path = "/Users/zeev/PycharmProjects/AdventOfCode2022/data/day4_input.txt"
 
 
 num_overlaps = 0
