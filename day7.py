@@ -43,8 +43,6 @@ class Dir:
             all_sizes.extend(dir.get_list_all_dir_sizes())
         return all_sizes
 
-
-
 file_path = "data/day7_input.txt"
 
 top_level_dir = Dir(name='/', parent=None)
