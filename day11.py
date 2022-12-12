@@ -1,4 +1,3 @@
-import inspect
 
 class Monkey:
     def __init__(self, name):
