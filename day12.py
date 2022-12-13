@@ -29,8 +29,6 @@ def path_find(start: tuple, goal: tuple, grid):
     distance_from_start_grid[start] = 0
 
     while positions_to_traverse:
-        if len(traversed_positions) % 100 == 0:
-            print("Iteration ", len(traversed_positions))
         current_pos = positions_to_traverse[0]
         if current_pos == goal:
             return distance_from_start_grid[current_pos]
@@ -44,6 +42,8 @@ def path_find(start: tuple, goal: tuple, grid):
                 distance_from_start_grid[neighbour] = distance_from_start_grid[current_pos] + 1
                 positions_to_traverse.append(neighbour)
 
+    return np.inf
+
 file_path = "data/day12_input.txt"
 
 line_list = []
@@ -55,6 +55,7 @@ letter_grid = np.array(line_list)
 number_grid = np.zeros(letter_grid.shape)
 start_pos = tuple()
 end_pos = tuple()
+list_start_positions = []
 
 for i in range(number_grid.shape[0]):
     for j in range(number_grid.shape[1]):
@@ -64,14 +65,21 @@ for i in range(number_grid.shape[0]):
         elif letter_grid[i, j] == 'E':
             end_pos = (i, j)
             number_grid[end_pos] = ord('z')
+        elif letter_grid[i, j] == 'a':
+            list_start_positions.append((i,j))
+            number_grid[i][j] = ord(letter_grid[i][j])
         else:
             number_grid[i][j] = ord(letter_grid[i][j])
 
-print("Size grid: ", number_grid.size)
-print(path_find(start_pos, end_pos, number_grid))
+original_distance = path_find(start_pos, end_pos, number_grid)
+print("From start position: (part 1) ", original_distance)
+distances = []
+distances.append(original_distance)
+for sp in list_start_positions:
+    distances.append(path_find(sp, end_pos, number_grid))
 
 
-# TODO find start and end pos
+print("shortest from eleveation a (part 2): ", min(distances))
 
 
 
