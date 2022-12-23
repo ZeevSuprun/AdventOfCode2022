@@ -7,7 +7,6 @@ def add_sand(occupied, start_x):
         current_y = 0
         # for each sand particle
         num_particles += 1
-        print("particle ", num_particles)
         while True:
             #slide until it stops
             # check underneath
@@ -21,17 +20,13 @@ def add_sand(occupied, start_x):
                     current_y += 1
                 else:
                     #stop sliding
-                    print(f"particle {num_particles} has stopped falling at {current_x}, {current_y}")
                     if current_y in occupied:
-                        print(occupied[current_y])
                         occupied[current_y].add(current_x)
-                        print(occupied[current_y])
                     else:
                         occupied[current_y] = {current_x}
                     break
             else:
                 # drop until there's something underneath
-                print("dropping")
                 y_values = list(occupied.keys())
                 y_values.sort()
                 has_stopped = False
@@ -46,9 +41,6 @@ def add_sand(occupied, start_x):
                     # Sand falls infinitely from this point
                     return num_particles
 
-
-
-
 file_path = "data/day14_test.txt"
 # key = y position, val = x positions set
 occupied_grid = dict()
@@ -58,7 +50,6 @@ with open(file_path, 'r') as file:
         segments = line.strip().split("->")
         print(segments)
         for i in range(len(segments[:-1])):
-            print(segments[i])
             start_x = int(segments[i].split(",")[0])
             start_y = int(segments[i].split(",")[1])
 
