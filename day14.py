@@ -1,6 +1,5 @@
 
 def add_sand(occupied, start_x):
-
     num_particles = 0
     while True:
         current_x = start_x
@@ -8,7 +7,7 @@ def add_sand(occupied, start_x):
         # for each sand particle
         num_particles += 1
         while True:
-            #slide until it stops
+            # slide until it stops
             # check underneath
             if current_y + 1 in occupied and current_x in occupied[current_y + 1]:
                 # check down and left
@@ -20,6 +19,10 @@ def add_sand(occupied, start_x):
                     current_y += 1
                 else:
                     #stop sliding
+                    if current_y == 0:
+                        # end condition to part 2, sand hole is plugged
+                        return num_particles
+                    #print(f"particle {num_particles} has stopped at {current_x}, {current_y}")
                     if current_y in occupied:
                         occupied[current_y].add(current_x)
                     else:
@@ -38,8 +41,10 @@ def add_sand(occupied, start_x):
                         has_stopped = True
                         break
                 if not has_stopped:
+                    print("Sand falling infinitely")
                     # Sand falls infinitely from this point
                     return num_particles
+
 
 file_path = "data/day14_test.txt"
 # key = y position, val = x positions set
@@ -48,7 +53,7 @@ occupied_grid = dict()
 with open(file_path, 'r') as file:
     for line in file:
         segments = line.strip().split("->")
-        print(segments)
+        #print(segments)
         for i in range(len(segments[:-1])):
             start_x = int(segments[i].split(",")[0])
             start_y = int(segments[i].split(",")[1])
@@ -73,7 +78,14 @@ with open(file_path, 'r') as file:
                 else:
                     occupied_grid[start_y] = new_elements
 
-print(add_sand(occupied_grid, 500) - 1)
+is_part_2 = True
+if is_part_2:
+    max_y = max(occupied_grid.keys())
+    floor_level = max_y + 2
+    occupied_grid[floor_level] = {i for i in range(-1000, 1000)}
+
+#print("Part 1: ", add_sand(occupied_grid, 500) - 1)
+print("Part 2: ", add_sand(occupied_grid, 500))
 
 
 
